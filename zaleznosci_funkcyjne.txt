@@ -1,0 +1,32 @@
+			1
+
+	zamowienia(id_produktu, nazwa_produktu, id_klienta, nazwa_klienta,
+data_zamowienia, cena_produktu, ilość, VAT, suma_brutto, suma_netto)
+
+id_produktu -> nazwa_produktu, cena_produktu, VAT
+nazwa_produktu -> cena_produktu, VAT
+id_klienta -> nawa_klienta, data_zamowienia, ilosc
+ilosc -> suma_netto, VAT
+suma_brutto -> suma_netto, VAT
+VAT -> nazwa_produktu
+
+			2
+	klucze kandydujace
+id_klienta + data_zamowienia
+id_produktu + data_zamowienia
+
+			3
+	pomieszczenia(id_pomieszczenia, numer_pomieszczenia, id_budynku,
+powierzchnia, liczba_okien, liczba_drzwi, ulica, miasto, kod_pocztowy)
+
+id_pomieszczenia -> numer_pomieszczenia,powierzchnia, id_budynku, liczba_okien,liczba_drzwi,miasto,ulica,kod_pocztowy
+numer_pomieszczenia -> powierzchnia, liczba_drzwi, liczba_okien
+id_budynku ->  ulica, miasto, kod_pocztowy
+ulica <- miasto, kod_pocztowy
+miasto <- kod_pocztowy
+
+	klucze kandydujace
+id_pomieszczenia, 
+numer_pomieszczenia + id_budynku
+
+
