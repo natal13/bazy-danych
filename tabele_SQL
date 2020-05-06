@@ -1,0 +1,134 @@
+-- Firma stomatologiczna 
+
+CREATE SCHEMA Firma;
+
+CREATE TABLE Firma.Pracownik(
+	IDPracownika VARCHAR(6) UNIQUE NOT NULL PRIMARY KEY,
+	ImieLekarza VARCHAR(20) NOT NULL,
+	NazwiskoLekarza VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE Firma.Pacjent(
+	IDPacjenta VARCHAR(6) NOT NULL PRIMARY KEY,
+	ImiePacjenta VARCHAR(30) NOT NULL,
+	NazwiskoPacjenta VARCHAR(50) NOT NULL
+); 
+
+CREATE TABLE Firma.Zabieg(
+	IDZabiegu VARCHAR(5) UNIQUE NOT NULL PRIMARY KEY,
+	NazwaZabiegu VARCHAR(30)
+);
+
+CREATE TABLE Firma.Wizyta(
+	IDWizyty int UNIQUE NOT NULL PRIMARY KEY,
+  DataWizyty DATE NOT NULL,
+	GodzinaWizyty TIME NOT NULL,
+  
+	IDPracownika VARCHAR(6), REFERENCES Firma.Pracownik(IDPracownika),
+	IDPacjenta VARCHAR(6)  REFERENCES Firma.Pacjent(IDPacjenta),
+	IDZabiegu VARCHAR(5) REFERENCES Firma.Zabieg(IDZabiegu),
+);
+
+INSERT INTO Firma.Pracownik (IDPracownika, ImiePracownika, ImiePracownika)
+  VALUES('S1011', 'Maria', 'Nowak');
+INSERT INTO Firma.Pracownik (IDPracownika, ImiePracownika, ImiePracownika)
+  VALUES('S1024', 'Jan', 'Kowalski');
+INSERT INTO Firma.Pracownik (IDPracownika, ImiePracownika, ImiePracownika)
+  VALUES('S1045', 'Anna', 'Jabłońska');
+INSERT INTO Firma.Pracownik (IDPracownika, ImiePracownika, ImiePracownika)
+  VALUES('S1034', 'Marek', 'Potocki');
+
+INSERT INTO Firma.Pacjent (IDPacjenta, ImiePacjenta, NazwiskoPacjenta) 
+  VALUES('P100', 'Anna', 'Jeleń');
+INSERT INTO Firma.Pacjent (IDPacjenta, ImiePacjenta, NazwiskoPacjenta) 
+  VALUES('P105', 'Jarosław', 'Nicpoń');
+INSERT INTO Firma.Pacjent (IDPacjenta, ImiePacjenta, NazwiskoPacjenta) 
+  VALUES('P108', 'Joanna', 'Nosek');
+INSERT INTO Firma.Pacjent (IDPacjenta, ImiePacjenta, NazwiskoPacjenta) 
+  VALUES('P120', 'Jan', 'Kałuża');
+INSERT INTO Firma.Pacjent (IDPacjenta, ImiePacjenta, NazwiskoPacjenta) 
+  VALUES('P130', 'Jerzy', 'Lis');
+INSERT INTO Firma.Pacjent (IDPacjenta, ImiePacjenta, NazwiskoPacjenta) 
+  VALUES('P123', 'Olga', 'Nowacka');
+
+INSERT INTO Firma.Zabieg (IDZabiegu, NazwaZabiegu)
+  (VALUES('Z500', 'Borowanie');
+INSERT INTO Firma.Zabieg (IDZabiegu, NazwaZabiegu)
+  VALUES('Z496', 'Lakowanie');
+INSERT INTO Firma.Zabieg (IDZabiegu, NazwaZabiegu)
+  VALUES('Z503', 'Usuwanie kamienia');
+
+INSERT INTO Firma.Wizyta  (IDWizyty, DataWizyty, GodzinaWizyty, IDPracownika, IDPacjenta, IDZabiegu)
+  VALUES('1', '12.03.2020','10:00','S1011', 'P100',  'Z500');
+INSERT INTO Firma.Wizyta  (IDWizyty, DataWizyty, GodzinaWizyty, IDPracownika, IDPacjenta, IDZabiegu)
+  VALUES('2', '12.03.2020', '13:00','S1011', 'P105',  'Z496');
+INSERT INTO dentysta.wizyty  (IDWizyty, DataWizyty, GodzinaWizyty, IDPracownika, IDPacjenta, IDZabiegu)
+  VALUES('3', '14.03.2020', '10:00','S1011', 'P108',  'Z500');
+INSERT INTO dentysta.wizyty  (IDWizyty, DataWizyty, GodzinaWizyty, IDPracownika, IDPacjenta, IDZabiegu)
+  VALUES('4', '16.03.2020' , '17:00','S1024', 'P108', 'Z503');
+INSERT INTO dentysta.wizyty  (IDWizyty, DataWizyty, GodzinaWizyty, IDPracownika, IDPacjenta, IDZabiegu)
+  VALUES('5', '18.03.2020', '09:00', 'S1045', 'P120',  'Z500');
+INSERT INTO dentysta.wizyty  (IDWizyty, DataWizyty, GodzinaWizyty, IDPracownika, IDPacjenta, IDZabiegu)
+  VALUES('6',  '20.03.2020','08:00','S1034', 'P130',  'Z496');
+INSERT INTO dentysta.wizyty  (IDWizyty, DataWizyty, GodzinaWizyty, IDPracownika, IDPacjenta, IDZabiegu)
+  VALUES('7', '12.03.2020', '15:00','S1034', 'P123',  'Z503');
+
+
+
+-- tabelka druga - Zamowienia 
+
+CREATE SCHEMA Zamowienia 
+
+CREATE TABLE Zamowienia.Produkt(
+IDProduktu varchar(4) UNIQUE NOT NULL PRIMARY KEY,
+NazwaProduktu varchar(40),
+CenaBrutto DOUBLE(6), 
+CenaNetto DOUBLE(6)
+);
+
+CREATE TABLE Zamowienia.Dostawca(
+	IdDostawcy varchar(4) UNIQUE NOT NULL PRIMARY KEY,
+	Dostawca varchar(40),
+  MiejscowoscDostawcy VARCHAR(30)
+  KodPocztowy VARCHAR(5)
+	Ulica varchar(30),
+	NrBudynku varchar(5)
+);
+
+CREATE TABLE Zamowienia.Usluga(
+IDUslugi INT PRIMARY KEY UNIQUE NOT NULL,
+IDProduktu VARCHAR(4) REFERENCES Zamowienia.Produkt(IdProduktu),
+IDDostawcy VARCHAR(4) REFERENCES Zamowienia.Dostawca(IdDostawcy)
+);
+
+INSERT INTO Zamowienia.Produkt (IDProduktu, NazwaProduktu, CenaBrutto, CenaNetto)
+  VALUES ('MN1',	'Makaron Nitki', 130, 150);
+INSERT INTO Zamowienia.Produkt (IDProduktu, NazwaProduktu, CenaBrutto, CenaNetto)
+  VALUES('KP2',	'Keczup pikantny', 200, 220);
+INSERT INTO Zamowienia.Produkt (IDProduktu, NazwaProduktu, CenaBrutto, CenaNetto)
+  VALUES('SP3', 'Sos pomidorowy', 89, 110);
+
+INSERT INTO Zamowienia.Dostawca (IdDostawcy, Dostawca, MiejscowoscDostawcy, KodPocztowy, Ulica, NrBudynku)
+  VALUES('MP', 'Makarony Polskie', 'Kraków', '31-435', 'Turystyczna', '40');
+INSERT INTO Zamowienia.Dostawca (IdDostawcy, Dostawca, MiejscowoscDostawcy, KodPocztowy, Ulica, NrBudynku)
+  VALUES('PP', 'Polskie przetwory',	'Kraków', '31-342', 'Wojska Polskiego',	'44a');
+INSERT INTO Zamowienia.Dostawca (IdDostawcy, Dostawca, MiejscowoscDostawcy, KodPocztowy, Ulica, NrBudynku)
+  VALUES('LM', 'Lubelski Makaron', 'Lublin', '04-242', 'Piłsudskiego', '332a');
+INSERT INTO Zamowienia.Dostawca (IdDostawcy, Dostawca, MiejscowoscDostawcy, KodPocztowy, Ulica, NrBudynku)
+  VALUES('PPom', 'Przetwory pomidorowe', 'Tarnów', '30-243', 'Rolnicza', '22/4');
+INSERT INTO Zamowienia.Dostawca (IdDostawcy, Dostawca, MiejscowoscDostawcy, KodPocztowy, Ulica, NrBudynku)
+  VALUES('MS', 'Małopolskie smaki',	'Nowy Targ', '35-434', 'Mickiewicza', '223/77');
+
+INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)
+  VALUES (1, 'MN1', 'MP');
+INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)
+  VALUES (2,	'KP2', 'PP');
+INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)  
+  VALUES (3, 'SP3', 'PP');
+INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy) 
+  VALUES (4,	'MN1', 'LM');
+INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)  
+  VALUES (5,	'KP2', 'PPom');
+INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)  
+  VALUES (6,	'SP3', 'MS');
+
