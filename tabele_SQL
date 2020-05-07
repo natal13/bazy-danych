@@ -122,13 +122,13 @@ INSERT INTO Zamowienia.Dostawca (IdDostawcy, Dostawca, MiejscowoscDostawcy, KodP
 INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)
   VALUES (1, 'MN1', 'MP');
 INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)
-  VALUES (2,	'KP2', 'PP');
+  VALUES (2, 'KP2', 'PP');
 INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)  
   VALUES (3, 'SP3', 'PP');
 INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy) 
-  VALUES (4,	'MN1', 'LM');
+  VALUES (4, 'MN1', 'LM');
 INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)  
-  VALUES (5,	'KP2', 'PPom');
+  VALUES (5, 'KP2', 'PPom');
 INSERT INTO Zamowienia.Usluga (IDUslugi, IDProduktu, IDDostawcy)  
-  VALUES (6,	'SP3', 'MS');
+  VALUES (6, 'SP3', 'MS');
 
