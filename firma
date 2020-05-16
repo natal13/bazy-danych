@@ -1,0 +1,82 @@
+CREATE DATABASE firma;
+CREATE SCHEMA ksiegowosc;
+
+CREATE TABLE ksiegowosc.pracownicy (
+  id_pracownika VARCHAR(4) PRIMARY KEY NOT NULL, 
+  imie VARCHAR(20), 
+  nazwisko VARCHAR(25), 
+  adres VARCHAR(30), 
+  telefon VARCHAR(9) 
+  );
+
+CREATE TABLE ksiegowosc.godziny (
+  id_godziny VARCHAR(4) PRIMARY KEY NOT NULL, 
+  data DATE, 
+  liczba_godzin INT, 
+  id_pracownika VARCHAR(4) REFERENCES ksiegowosc.pracownicy(id_pracownika)
+  ); 
+
+CREATE TABLE ksiegowosc.pensja (
+  id_pensji VARCHAR(4) PRIMARY KEY NOT NULL, 
+  stanowisko VARCHAR(30), 
+  kwota INT
+  );
+
+CREATE TABLE ksiegowosc.premia (
+  id_premii VARCHAR(4) PRIMARY KEY NOT NULL, 
+  rodzaj VARCHAR(15), 
+  kwota INT
+  );
+
+CREATE TABLE ksiegowosc.wynagrodzenie( 
+  id_wynagrodzenia VARCHAR(4) PRIMARY KEY NOT NULL, 
+  data DATE, 
+  id_pracownika VARCHAR(4) REFERENCES ksiegowosc.pracownicy(id_pracownika), 
+  id_godziny VARCHAR(4) REFERENCES ksiegowosc.godziny(id_godziny), 
+  id_pensji VARCHAR(4) REFERENCES ksiegowosc.pensja(id_pensji), 
+  id_premii VARCHAR(4) REFERENCES ksiegowosc.premia(id_premii)
+  );
+
+
+
+
+
+INSERT INTO ksiegowosc.pracownicy(id_pracownika, imie, nazwisko, adres, telefon) VALUES
+
+INSERT INTO ksiegowosc.godziny (id_godziny, data, liczba_godzin , id_pracownika)
+
+INSERT INTO ksiegowosc.pensja (id_pensji, stanowisko, kwota)
+
+INSERT INTO ksiegowosc.premia (id_premii, rodzaj, kwota)
+
+INSERT INTO ksiegowosc.wynagrodzenie( id_wynagrodzenia, data, id_pracownika, id_godziny, id_pensji, id_premii)
+
+
+
+INSERT INTO ksiegowosc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT * FROM ksiegowosc.pracownicy;
+SELECT * FROM ksiegowosc.godziny;
+SELECT * FROM ksiegowosc.pensja;
+SELECT * FROM ksiegowosc.premia;
+SELECT * FROM ksiegowosc.wynagrodzenie;
