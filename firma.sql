@@ -104,3 +104,17 @@ SELECT * FROM ksiegowosc.godziny;
 SELECT * FROM ksiegowosc.pensja;
 SELECT * FROM ksiegowosc.premia;
 SELECT * FROM ksiegowosc.wynagrodzenie;
+
+
+--zadania 
+
+SELECT id_pracownika, nazwisko FROM pracownicy;
+
+SELECT FROM 
+
+
+
+
+
+
+
