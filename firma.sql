@@ -110,7 +110,6 @@ SELECT * FROM ksiegowosc.wynagrodzenie;
 
 SELECT id_pracownika, nazwisko FROM pracownicy;
 
-SELECT FROM 
 
 
 
