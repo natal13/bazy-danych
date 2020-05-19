@@ -39,13 +39,13 @@ CREATE TABLE ksiegowosc.wynagrodzenie(
 
 
 INSERT INTO ksiegowosc.pracownicy(id_pracownika, imie, nazwisko, adres, telefon) VALUES
-  ('P1', 'Andrzej', 'Kowal', 'Kraków ul. Smolki 81', '506182998'),
+  ('P1', 'Janusz', 'Kowal', 'Kraków ul. Smolki 81', '506182998'),
   ('P2', 'Irena', 'Joda', 'Kraków ul. Łany 21', '782555231'), 
-  ('P3', 'Kronelia', 'Mikułowska', 'Kraków ul. Kręta 122', '739213331'),
+  ('P3', 'Krystyna', 'Mikułowska', 'Kraków ul. Kręta 122', '739213331'),
   ('P4', 'Mateusz', 'Królik', 'Myślenice ul. Złota 2', '502177122'),
   ('P5', 'Krystian', 'Nowak', 'Myślenice ul. Spacerowa 7', '622381245')
   ('P6', 'Maciej', 'Słoneczny', 'Myślenice ul. Kasprowicza 29', '672291432'),
-  ('P7', 'Anna', 'Nowak', 'Myślenice ul. Spacerowa 7', '504673992'),
+  ('P7', 'Klaudia', 'Nowak', 'Myślenice ul. Spacerowa 7', '504673992'),
   ('P8', 'Kajetan', 'Mróz', 'Skawina ul. Żwirki i Wigury 117', '532912432'),
   ('P9', 'Adrian', 'Pradel', 'Skawina ul. Kroabnicka 49', '621993472'),
   ('P10', 'Katarzyna', 'Ziemniak', 'Skawina ul. Zacisze 5', '781987177');
@@ -82,7 +82,7 @@ INSERT INTO ksiegowosc.premia (id_premii, rodzaj, kwota) VALUES
   ('B4', 'roczna', 1100),
   ('B5', 'za nadgodziny', 710),
   ('B6', 'regulamina', 635),
-  ('B7', 'uznaniowa', 710),
+  ('B7', 'uznaniowa', NULL),
   ('B8', 'kwartalna', 370),
   ('B9', 'roczna', 900),
   ('B10', 'za nadgodziny', 640);
@@ -110,9 +110,28 @@ SELECT * FROM ksiegowosc.wynagrodzenie;
 
 SELECT id_pracownika, nazwisko FROM pracownicy;
 
+SELECT id_pracownika FROM wynagrodzenia WHERE  ( SELECT id_pensja FROM pensja WHERE kwota>1000);
 
+SELECT id_pracownika FROM wynagrodzenia WHERE 
+  (SELECT id_premia FROM premia WHERE kwota = NULL AND (SELECT id_pensja DROM pensja WHERE kwota>200))
+  
+SELECT * FROM pracownicy WHERE imie LIKE 'J%'
 
+SELECT * FROM pracownicy WHERE nazwisko LIKE '%n%' AND imie LIKE '%a'
 
+SELECT imie, nazwisko, liczba_godzin-160 AS nadgodziny 
+  FROM ksiegowosc.pracownicy JOIN ksiegowosc.godziny ON pracownicy.id_pracownika = godziny.id_pracownika;
+
+SELECT imie, nazwisko, kwota FROM ksiegowosc.pracownicy, ksiegowosc.pensja, ksiegowosc.wynagrodzenie
+  WHERE ksiegowosc.pensja.id_pensji = ksiegowosc.wynagrodzenie.id_pensji
+    AND ksiegowosc.pracownicy.id_pracownika = ksiegowosc.wynagrodzenie.id_pracownika AND '1500' <= kwota AND kwota <= '3000';
+
+SELECT imie, nazwisko, liczba_godzin -160 AS nadgodziny, id_premii FROM ksiegowosc.pracownicy, ksiegowosc.godziny, ksiegowosc.wynagrodzenie
+  WHERE ksiegowosc.pracownicy.id_pracownika = ksiegowosc.godziny.id_pracownika
+    AND ksiegowosc.wynagrodzenie.id_godziny = ksiegowosc.godziny.id_godziny AND liczba_godzin > 160 AND premia IS NULL;
+
+SELECT pensje.stanowisko, COUNT(pensje.stanowisko) FROM pensje, wynagrodzenie WHERE pensje.id_pensji = wynagrodzenie.id_pensji 
+  GROUP BY pensje.stanowisko
 
 
 
