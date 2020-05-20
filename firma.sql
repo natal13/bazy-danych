@@ -133,6 +133,26 @@ SELECT imie, nazwisko, liczba_godzin -160 AS nadgodziny, id_premii FROM ksiegowo
 SELECT pensje.stanowisko, COUNT(pensje.stanowisko) FROM pensje, wynagrodzenie WHERE pensje.id_pensji = wynagrodzenie.id_pensji 
   GROUP BY pensje.stanowisko
 
+SELECT imie, nazwisko, pensja.kwota, premia.kwota FROM ksiegowosc.pracownicy, ksiegowosc.wynagrodzenie, ksiegowosc.pensja, ksiegowosc.premia 
+  WHERE ksiegowosc.wynagrodzenie.id_pracownika = ksiegowosc.pracownicy.id_pracownika 
+    AND ksiegowosc.wynagrodzenie.id_pensji = ksiegowosc.pensja.id_pensji AND ksiegowosc.wynagrodzenie.id_premii = ksiegowosc.premia.id_premii 
+      ORDER BY ksiegowosc.pensja.kwota DESC, ksiegowosc.premia.kwota DESC;
+
+SELECT pensje.stanowisko, COUNT(pensje.stanowisko) FROM pensje, wynagrodzenie WHERE pensje.id_pensji = wynagrodzenie.id_pensji 
+		GROUP BY pensje.stanowisko
+
+SELECT MIN(kwota) AS minimalna, AVG(kwota) AS średnia, MAX(kwota) AS maksymalna FROM pensje WHERE stanowisko = 'fakturzysta'
+
+SELECT SUM(pensje.kwota) AS całość FROM wynagrodzenie, pensje WHERE wynagrodzenie.id_pensji = pensje.id_pensji
+
+SELECT COUNT (stanowisko) AS stanowiska, stanowisko FROM ksiegowosc.pensja, ksiegowosc.wynagrodzenie
+  WHERE ksiegowosc.wynagrodzenie.id_pensji = ksiegowosc.pensja.id_pensji GROUP BY ksiegowosc.pensja.stanowisko;
+
+SELECT pensje.stanowisko, COUNT(*) AS łącznie FROM pensje, premie, wynagrodzenie 
+	WHERE pensje.id_pensji = wynagrodzenie.id_pensji AND premie.id_premii = wynagrodzenie.id_premii
+	GROUP BY pensje.stanowisko
+
+DELETE FROM ksiegowosc.wynagrodzenie USING ksiegowosc.pensja WHERE pensja.kwota <1200 AND wynagrodzenie.id_pensji = pensja.id_pensji
 
 
 
