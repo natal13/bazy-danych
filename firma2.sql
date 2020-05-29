@@ -15,5 +15,5 @@ LEFT JOIN ksiegowosc.pracownicy ON ksiegowosc.wynagrodzenie.id_pracownika = ksie
 LEFT JOIN ksiegowosc.pensja ON ksiegowosc.wynagrodzenie.id_pensji = ksiegowosc.pensja.id_pensji
 LEFT JOIN ksiegowosc.premia ON ksiegowosc.wynagrodzenie.id_premii = ksiegowosc.premia.id_premii;
 
-SELECT CONCAT('Pracownik '|| imie ||' ' ||nazwisko||', w dniu '|| data ||' otrzymał pensję całkowitą na kwotę '|| '' ) AS raport FROM ksiegowosc.pracownicy,ksiegowosc.wynagrodzenie;
+SELECT CONCAT('Pracownik '|| imie ||' ' ||nazwisko||', w dniu '|| data ||' otrzymał pensję, gdzie wynagrodzenie zasadnicze wynosiło '|| '' ) AS raport FROM ksiegowosc.pracownicy,ksiegowosc.wynagrodzenie;
 				
