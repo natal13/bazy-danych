@@ -8,7 +8,7 @@ GO
 
 --
 RESTORE firmaD
-FROM DISK = 'E:\DBBackups\mydb.bak'
+FROM DISK = 'C:\Program Files\SQL\pakiet\bazy\firmad.bak'
 
 --
 BACKUP DATABASE AdventureWorks2017
