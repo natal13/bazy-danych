@@ -24,7 +24,19 @@ CREATE TRIGGER trigger_dml ON Person.Person FOR UPDATE AS
 UPDATE Person.Person SET lastName=UPPER(lastName)
 SELECT * FROM Person.Person;
 
-
+--zad 3 
+CREATE TRIGGER taxRateMonitoring ON AdventureWorks2017.Sales.SalesTaxRate AFTER UPDATE 
+AS
+BEGIN
+	DECLARE @taxrate1 FLOAT = (SELECT TaxRate FROM deleted)
+	DECLARE @taxrate2 FLOAT = (SELECT TaxRate FROM inserted)
+	DECLARE @uw FLOAT = @taxrate1 * 0.3
+	IF (@taxrate1 > (@taxrate2 + @uw)) OR (@taxrate2 < (@taxrate1 - @uw))
+		BEGIN
+		PRINT 'Uwaga blad!'
+		ROLLBACK;
+	END
+END
 
 
 
